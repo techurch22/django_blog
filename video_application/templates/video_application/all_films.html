@@ -1,0 +1,24 @@
+{% extends 'video_application/base.html' %}
+
+{% block title %}
+    Movie_base
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="d13"><h3>Колличество фильмов в базе - [ {{ aggregator.id__count }} ]</h3></div>
+
+    {{context}}
+
+    {% for movie in context %}
+
+        <ul class="border">
+            <li><a href="{{ movie.get_url }}">{{ movie.name }}</a></li>
+        </ul>
+
+
+    {% endfor %}
+
+
+{% endblock %}
