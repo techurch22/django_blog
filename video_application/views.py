@@ -1,6 +1,6 @@
 from video_application.models import Video
 from django.shortcuts import render, get_object_or_404
-from django.db.models import F, Sum, Avg, Min, Max, Count, Value
+from django.db.models import F, Count
 
 
 def show_all_video(request):
