@@ -4,10 +4,7 @@ from django.db.models import F, Sum, Avg, Min, Max, Count, Value
 
 
 def show_all_video(request):
-    #   context = Video.objects.order_by(F('rating').desc())
-    context = Video.objects.annotate(
-        str_field=Value('films library')
-    )
+    context = Video.objects.order_by(F('rating').desc())
     aggregator = context.aggregate(Count('id'))
     return render(request, 'video_application/all_films.html', context={
         'context': context,
