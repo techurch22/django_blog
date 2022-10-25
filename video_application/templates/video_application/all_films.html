@@ -9,6 +9,10 @@
 
     <div class="d13"><h3>Колличество фильмов в базе - [ {{ aggregator.id__count }} ]</h3></div>
 
+    {% for director in directors %}
+    <h1>{{ director }}</h1>
+
+    {% endfor %}
 
     {% for movie in context %}
 

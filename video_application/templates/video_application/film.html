@@ -1,12 +1,23 @@
 {% extends 'video_application/base.html' %}
 
 {% block content %}
-    <h1>{{ context.name }}</h1>
+    <h1>Название фильма: {{ context.name }}</h1>
     <br>
-    <h2>{{ context.year }}</h2>
+    <h2>Год выпуска: {{ context.year }}</h2>
+    <h3>Рейтинг картины: {{ context.rating }}</h3>
+    <h3>Бюджет картины: {{ context.budget }} {{ context.cur_id }}</h3>
     <br>
-    <h3>{{ context.rating }}</h3>
+    <hr>
+    <h3>Режиссер: </h3>
+    <h3><a href="{{ context.director.get_url }}">{{ context.director }}</a></h3>
     <br>
-    <h3>{{ context.budget }}</h3>
+    <hr>
+    <h3>Актеры: </h3>
+    {% for actor in context.actors.all %}
+        <ul>
+            <li> {{ actor.first_name }} {{ actor.last_name }}</li>
+        </ul>
+    {% endfor %}
+
 
 {% endblock %}

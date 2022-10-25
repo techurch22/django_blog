@@ -1,12 +1,11 @@
 from django.contrib import admin
-from .models import Video
+from .models import Video, Director, Actor
 from django.db.models import QuerySet
 
 
 # Register your models here.
 
 class RatingFilter(admin.SimpleListFilter):
-
     title = 'rating'
     parameter_name = 'rating'
 
@@ -26,9 +25,19 @@ class RatingFilter(admin.SimpleListFilter):
             return queryset.filter(rating__gte=90)
 
 
+class DirectorAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'direct_email']
+    list_editable = ['first_name', 'last_name', 'direct_email']
+
+
+
+
+
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ['name', 'year', 'budget', 'rating', 'avg_budget_rating', 'cur_id']
-    list_editable = ['year', 'budget', 'rating', 'cur_id']
+    list_display = ['name', 'year', 'budget', 'rating', 'avg_budget_rating', 'cur_id', 'director']
+    list_editable = ['year', 'budget', 'rating', 'cur_id', 'director']
+    prepopulated_fields = {'slug': ('name',)}
+    filter_horizontal = ['actors']
     ordering = ['-rating']
     actions = ['setup_usd', 'setup_eur', 'setup_rub']
     list_per_page = 10
@@ -56,3 +65,5 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Video, VideoAdmin)
+admin.site.register(Director)
+admin.site.register(Actor)
