@@ -1,0 +1,11 @@
+{% extends 'video_application/base.html' %}
+
+{% block content %}
+
+{% for director in context %}
+
+    <h2><a href="{{ director.get_url }}">{{ director }}</a></h2>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'video_application/base.html' %}
+
+{% block content %}
+    <h1>{{ director }}</h1>
+    {% for film in films %}
+        <hr>
+        <h1>{{ film.name }}</h1>
+        <h2>Год выпуска: {{ film.year }}</h2>
+        <h3>Рейтинг картины: {{ film.rating }} баллов</h3>
+        <h3>Бюджет картины: {{ film.budget }} {{ film.cur_id }}</h3>
+    {% endfor %}
+
+{% endblock %}
