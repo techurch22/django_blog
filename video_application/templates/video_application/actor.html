@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'video_application/base.html' %}
+
+{% block content %}
+
+    <h2> {{ actor.first_name }} {{ actor.last_name }} </h2>
+    <br>
+
+    {% for film in films %}
+        <ul>
+            <li><h3><a href="{{ film.get_url }}">{{ film.name }}</a></h3></li>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

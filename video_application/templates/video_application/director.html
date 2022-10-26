@@ -4,7 +4,7 @@
     <h1>{{ director }}</h1>
     {% for film in films %}
         <hr>
-        <h1>{{ film.name }}</h1>
+        <h1><a href="{{ film.get_url }}">{{ film.name }}</a></h1>
         <h2>Год выпуска: {{ film.year }}</h2>
         <h3>Рейтинг картины: {{ film.rating }} баллов</h3>
         <h3>Бюджет картины: {{ film.budget }} {{ film.cur_id }}</h3>

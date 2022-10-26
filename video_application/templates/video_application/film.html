@@ -15,7 +15,7 @@
     <h3>Актеры: </h3>
     {% for actor in context.actors.all %}
         <ul>
-            <li> {{ actor.first_name }} {{ actor.last_name }}</li>
+            <li><a href="{{ actor.get_url }}"> {{ actor.first_name }} {{ actor.last_name }}</a></li>
         </ul>
     {% endfor %}
 

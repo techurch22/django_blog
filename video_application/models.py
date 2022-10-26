@@ -16,9 +16,18 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDERS, default='M')
+    actor_slug = models.SlugField(default='', null=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    def get_url(self):
+        return reverse('actor', args=[self.actor_slug])
+
+    def save(self, *args, **kwargs):
+        full_name = self.first_name + ' ' + self.last_name
+        self.actor_slug = slugify(translit(full_name, 'ru', reversed=True))
+        super(Actor, self).save(*args, **kwargs)
 
 
 class Director(models.Model):
@@ -52,8 +61,8 @@ class Video(models.Model):
     budget = models.IntegerField(validators=[MinValueValidator(1)], null=False, default=0)
     slug = models.SlugField(default='', null=False)
     cur_id = models.CharField(max_length=3, choices=CURRENCY, default='USD')
-    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
-    actors = models.ManyToManyField(Actor)
+    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='videosd')
+    actors = models.ManyToManyField(Actor, related_name='videos')
 
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(translit(self.name, 'ru', reversed=True))
