@@ -49,24 +49,25 @@ class Director(models.Model):
 
 
 class Video(models.Model):
+
     CURRENCY = [
         ('USD', 'Dollar'),
         ('EUR', 'Euro'),
         ('RUB', 'Rubles'),
     ]
 
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40,)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)], )
     year = models.IntegerField(null=True, )
     budget = models.IntegerField(validators=[MinValueValidator(1)], null=False, default=0)
-    slug = models.SlugField(default='', null=False)
+    slug = models.SlugField(default='', null=True)
     cur_id = models.CharField(max_length=3, choices=CURRENCY, default='USD')
-    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='videosd')
+    director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True, related_name='videos')
     actors = models.ManyToManyField(Actor, related_name='videos')
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(translit(self.name, 'ru', reversed=True))
-    #     super(Video,self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(translit(self.name, 'ru', reversed=True))
+        super(Video,self).save(*args, **kwargs)
 
     def get_url(self):
         return reverse('filming', args=[self.slug])

@@ -1,6 +1,8 @@
 from video_application.models import Video, Director, Actor
 from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Count
+from .forms import VideoForm
+from django.http import HttpResponseRedirect
 
 
 def show_all_directors(request):
@@ -8,6 +10,7 @@ def show_all_directors(request):
     return render(request, 'video_application/all_directors.html', context={
         'context': context
     })
+
 
 def show_all_video(request):
     context = Video.objects.order_by(F('rating').desc())
@@ -24,6 +27,7 @@ def show_film(request, slug):
         'context': context
     })
 
+
 def show_director(request, slug):
     director = get_object_or_404(Director, direct_slug=slug)
     films = Video.objects.filter(director=director)
@@ -32,11 +36,13 @@ def show_director(request, slug):
         'films': films
     })
 
+
 def show_all_actors(request):
     actors = Actor.objects.all()
     return render(request, 'video_application/all_actors.html', context={
         'actors': actors
     })
+
 
 def show_actor(request, slug):
     actor = get_object_or_404(Actor, actor_slug=slug)
@@ -45,3 +51,17 @@ def show_actor(request, slug):
         'actor': actor,
         'films': films
     })
+
+
+def new_film(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = VideoForm()
+        return render(request, 'video_application/new_film.html', context={
+            'form': form,
+
+        })

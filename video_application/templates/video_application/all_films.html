@@ -4,24 +4,32 @@
     Movie_base
 {% endblock %}
 
-
 {% block content %}
 
-    <div class="d13"><h3>Колличество фильмов в базе - [ {{ aggregator.id__count }} ]</h3></div>
+    <div class="container mx-auto w-50">
+        <h1 class="text-center my-3">Колличество фильмов в базе - [ {{ aggregator.id__count }} ]</h1>
+        <div class="row">
+            {% for movie in context %}
+                <div class="col-md-12">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title text-right">{{ movie.name }}</h2>
+                            <h5>Рейтинг: {{ movie.rating }}</h5>
+                            <h5>Бюджет: {{ movie.budget }} {{ movie.cur_id }}</h5>
+                            <h5>Режиссер:<a href="{{ movie.director.get_url }}"> {{ movie.director }} </a></h5>
 
-    {% for director in directors %}
-    <h1>{{ director }}</h1>
-
-    {% endfor %}
-
-    {% for movie in context %}
-
-        <ul class="border">
-            <li><a href="{{ movie.get_url }}">{{ movie.name }}</a></li>
-        </ul>
-
-
-    {% endfor %}
-
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div class="btn-group" style="">
+                                    <a href="{{ movie.get_url }}" class="btn btn-primary">Подробнее</a>
+                                </div>
+                                <small class="text-muted">{{ movie.year }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
+

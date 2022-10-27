@@ -1,23 +1,26 @@
 {% extends 'video_application/base.html' %}
 
 {% block content %}
-    <h1>Название фильма: {{ context.name }}</h1>
-    <br>
-    <h2>Год выпуска: {{ context.year }}</h2>
-    <h3>Рейтинг картины: {{ context.rating }}</h3>
-    <h3>Бюджет картины: {{ context.budget }} {{ context.cur_id }}</h3>
-    <br>
-    <hr>
-    <h3>Режиссер: </h3>
-    <h3><a href="{{ context.director.get_url }}">{{ context.director }}</a></h3>
-    <br>
-    <hr>
-    <h3>Актеры: </h3>
-    {% for actor in context.actors.all %}
-        <ul>
-            <li><a href="{{ actor.get_url }}"> {{ actor.first_name }} {{ actor.last_name }}</a></li>
-        </ul>
-    {% endfor %}
-
-
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ context.name }}</h1>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <h3>Год выпуска: {{ context.year }}</h3>
+                <h3>Рейтинг картины: {{ context.rating }}</h3>
+                <h3>Бюджет картины: {{ context.budget }} {{ context.cur_id }}</h3>
+            </h5>
+            <p class="card-text">
+            <h3>
+                Режиссер: <a href="{{ context.director.get_url }}">{{ context.director }}</a>
+            </h3>
+            <br>
+            <h3>Актеры: </h3>
+            {% for actor in context.actors.all %}
+                <h4><a href="{{ actor.get_url }}"> {{ actor.first_name }} {{ actor.last_name }}</h4>
+            {% endfor %}
+            </p>
+        </div>
+    </div>
 {% endblock %}
