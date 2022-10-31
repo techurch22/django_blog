@@ -6,24 +6,31 @@
 
 {% block content %}
 
-    <div class="container mx-auto w-50">
+    <div class="container mx-auto w-100">
         <h1 class="text-center my-3">Колличество фильмов в базе - [ {{ aggregator.id__count }} ]</h1>
         <div class="row">
             {% for movie in context %}
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
                             <h2 class="card-title text-right">{{ movie.name }}</h2>
+                            <br>
                             <h5>Рейтинг: {{ movie.rating }}</h5>
                             <h5>Бюджет: {{ movie.budget }} {{ movie.cur_id }}</h5>
                             <h5>Режиссер:<a href="{{ movie.director.get_url }}"> {{ movie.director }} </a></h5>
-
-                            <div class="d-flex justify-content-between align-items-center mt-3">
+                            <br>
+                            <div class="d-flex justify-content-end align-items-center mt-3">
                                 <div class="btn-group" style="">
-                                    <a href="{{ movie.get_url }}" class="btn btn-primary">Подробнее</a>
+                                    <a href="{{ movie.get_url }}" class="btn btn-primary mx-2">Подробнее</a>
                                 </div>
-                                <small class="text-muted">{{ movie.year }}</small>
+                                <div class="btn-group" style="">
+                                    <a href="{% url 'delete_film' slug=movie.slug %}" class="btn btn-danger mx-2">Удалить</a>
+                                </div>
+                                <div class="btn-group" style="">
+                                    <a href="{% url 'edit_film' slug=movie.slug %}" class="btn btn-info mx-2">Редактировать</a>
+                                </div>
                             </div>
+                            <small class="text-muted">{{ movie.year }}</small>
                         </div>
                     </div>
                 </div>

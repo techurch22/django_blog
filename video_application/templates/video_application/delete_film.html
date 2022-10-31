@@ -1,0 +1,17 @@
+{% extends 'video_application/base.html' %}
+{% block content %}
+    <div class="container w-50 mx-auto text-center">
+        <form action="{% url 'delete_film' slug=video.slug %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <br>
+                <h2>Вы уверены что хотите удалить <br> "{{ video.name }}" ?</h2>
+            </div>
+            <div class="container mx-auto w-50">
+                <a href="{% url 'filming' slug=video.slug %}" class="btn btn-primary">Отмена</a>
+                <button type="submit" name="button" class="btn btn-primary">Удалить фильм</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

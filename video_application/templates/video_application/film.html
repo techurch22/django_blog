@@ -21,6 +21,12 @@
                 <h4><a href="{{ actor.get_url }}"> {{ actor.first_name }} {{ actor.last_name }}</h4>
             {% endfor %}
             </p>
+            <div class="btn-group" style="">
+                <a href="{% url 'delete_film' slug=context.slug %}" class="btn btn-danger">Удалить</a>
+            </div>
+            <div class="btn-group" style="">
+                <a href="{% url 'edit_film' slug=context.slug %}" class="btn btn-info mx-2">Редактировать</a>
+            </div>
         </div>
     </div>
 {% endblock %}

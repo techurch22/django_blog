@@ -1,7 +1,7 @@
 {% extends 'video_application/base.html' %}
 {% block content %}
     <div class="w-50 mx-auto">
-        <form action="{% url 'newfilm' %}" method="post">
+        <form action="{% url 'edit_film' slug=video.slug %}" method="post">
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
@@ -14,9 +14,7 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            <button type="submit" name="button" class="btn btn-primary">Сохранить фильм</button>
+            <button type="submit" name="button" class="btn btn-primary">Изменить фильм</button>
         </form>
     </div>
 {% endblock %}
-
-

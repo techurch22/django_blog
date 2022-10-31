@@ -1,8 +1,9 @@
 from video_application.models import Video, Director, Actor
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.db.models import F, Count
 from .forms import VideoForm
 from django.http import HttpResponseRedirect
+
 
 
 def show_all_directors(request):
@@ -59,9 +60,49 @@ def new_film(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
+        return render(request, 'video_application/new_film.html', context={
+            'form': form,
+
+        })
+
     else:
         form = VideoForm()
         return render(request, 'video_application/new_film.html', context={
             'form': form,
 
         })
+
+def edit_film(request, slug):
+
+    if request.method == 'GET':
+        video = Video.objects.get(slug__iexact=slug)
+        form = VideoForm(instance=video)
+        return render(request, 'video_application/edit_film.html', context={
+            'video': video,
+            'form': form
+        })
+
+    if request.method == 'POST':
+        video = Video.objects.get(slug__iexact=slug)
+        form = VideoForm(request.POST, instance=video)
+
+        if form.is_valid():
+            edited_film = form.save()
+            return redirect('filming', slug=video.slug)
+        return render(request, 'video_application/edit_film.html', context={
+            'video': video,
+            'form': form
+        })
+
+def delete_film(request, slug):
+
+    if request.method == 'GET':
+        video = Video.objects.get(slug__iexact=slug)
+        return render(request, 'video_application/delete_film.html', context={
+            'video':video
+        })
+
+    if request.method == 'POST':
+        video = Video.objects.get(slug__iexact=slug)
+        video.delete()
+        return redirect('/')

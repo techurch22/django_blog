@@ -7,38 +7,46 @@ class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
         fields = ['name', 'rating', 'year', 'budget', 'director', 'actors']
+        labels = {
+            "name": "Название фильма",
+            "rating": "Рейтинг",
+            "year": "Год выхода",
+            "budget": "Бюджет",
+            "director": "Режиссер",
+            "actors": "В ролях",
+        }
 
 
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "name",
-                'placeholder': "Название картины",
+                'placeholder': "---",
             }),
             'rating': forms.NumberInput(attrs={
                 'class': "form-control",
                 'id': "rating",
-                'placeholder': "Рейтинг"
+                'placeholder': "---"
             }),
             'year': forms.NumberInput(attrs={
                 'class': "form-control",
                 'id': "year",
-                'placeholder': "Год выхода"
+                'placeholder': "---"
             }),
             'budget': forms.NumberInput(attrs={
                 'class': "form-control",
                 'id': "budget",
-                'placeholder': "Бюджет"
+                'placeholder': "---"
             }),
             'director': forms.Select(attrs={
                 'class': "form-control",
                 'id': "director",
-                'placeholder': "Режисер"
+                'placeholder': "---"
             }),
             'actors': forms.SelectMultiple(attrs={
                 'class': "form-control",
                 'id': "actors",
-                'placeholder': "Актеры"
+                'placeholder': "---"
             }),
         }
 

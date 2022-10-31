@@ -4,8 +4,8 @@
 
     {% for actor in actors %}
 
-        <ul>
-            <li><a href="{{ actor.get_url }}">{{ actor }}</a></li>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="{{ actor.get_url }}">{{ actor }}</a></li>
         </ul>
 
     {% endfor %}

@@ -2,10 +2,12 @@
 
 {% block content %}
 
-{% for director in context %}
+    {% for director in context %}
 
-    <h2><a href="{{ director.get_url }}">{{ director }}</a></h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="{{ director.get_url }}">{{ director }}</a></li>
+        </ul>
 
-{% endfor %}
+    {% endfor %}
 
 {% endblock %}
